@@ -9,7 +9,7 @@ void main() {
   double d = 10.0;
   bool b = true; // false;
   var v = true;
-
+ 
   print(b);
 
   print("Hello Im $s I Live in $t my age = $i");
@@ -104,4 +104,9 @@ Comment
 //$
   print(str.substring(4)); // == str.substring(4,str.length)
   print(str.substring(0, 5));
+
+
+
+
+  
 }
