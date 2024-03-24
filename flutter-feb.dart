@@ -1,6 +1,6 @@
 void main() {
   print("Hello!");
- 
+
   String s = "Ahmad";
   String e = "15";
   String w = "89";
@@ -9,7 +9,7 @@ void main() {
   double d = 10.0;
   bool b = true; // false;
   var v = true;
- 
+
   print(b);
 
   print("Hello Im $s I Live in $t my age = $i");
@@ -105,8 +105,141 @@ Comment
   print(str.substring(4)); // == str.substring(4,str.length)
   print(str.substring(0, 5));
 
+// Drawing the triangle
+  for (int i = 1; i <= 5; i++) {
+    // Printing spaces before each row
+    for (int space = 1; space <= 5 - i; space++) {
+      print(' ');
+    }
+    // Printing '*' for each row
+    for (int j = 1; j <= 2 * i - 1; j++) {
+      print('*');
+    }
+    // Moving to the next line
+    print('');
+  }
 
+  String sp = "     ";
 
+  for (var i = 5; i > 0; i--) {
+    sp = sp.substring(0, i);
+    for (var j = i; j >= i; j--) {
+      switch (j) {
+        case 5:
+          print(sp + "*");
+          break;
+        case 4:
+          print(sp + "***");
+          break;
+        case 3:
+          print(sp + "*****");
+          break;
+        case 2:
+          print(sp + "*******");
+          break;
+        case 1:
+          print(sp + "*********");
+          break;
+      }
+    }
+  }
 
-  
+  int y = 0;
+  for (int i = 0; i < 5; i++) {
+    for (int j = i; j <= 11; j++) {
+      print(" ");
+      if (j == 5) {
+        for (int num = 0; num <= y + y; num++) {
+          print("*");
+        }
+      }
+    }
+    y++;
+    print("");
+  }
+
+  String star = "*";
+  String space = ' ';
+  int count = 7;
+
+  for (var i = 0; i < count; i++) {
+    space = " ";
+    for (var j = 0; j < (count - i); j++) {
+      space += " ";
+    }
+    print(space + star + space);
+    star += "**";
+  }
+
+  calcuate(x: 2, y: 5);
+  double addData = add(5.0);
+  print("addData $addData");
+
+  List list = ["a", "b", "c", "d"]; // elemnts
+  //0    1    2    3      indexes
+  print(list);
+  print(list[0]);
+  print(list.length);
+  for (var i = 0; i < list.length; i++) {
+    print(list[i]);
+  }
+
+  Map m = {
+    "USA": {
+      'key5': "value1",
+    },
+    "key2": ["a", "b", "c", "d"],
+    "key3": "value3",
+    "key4": "value4",
+  };
+  List l = m['key2'];
+  print(l);
+  print(m.keys);
+
+//Apple //Cir A >=
+//Flutter (List, Map) Future
+
+//SQlite
+
+  Calcuater cal = Calcuater();
+  cal.add(1, 5);
+  cal.remove(5, 2);
+  print(cal.x);
+  print(cal.y);
 }
+
+void calcuate({required double x, double y = 0.0}) {
+  print("Hello");
+  print(x - y);
+}
+
+double add(double parameter1, [double parameter2 = 5.0]) {
+  print("Add");
+  print(parameter1 + parameter2);
+  return parameter1 + parameter2;
+}
+
+class Calcuater {
+  int x = 10;
+  int y = 5;
+  int _varName = 1;
+  double add(double parameter1, double parameter2) {
+    print("Add");
+    print(parameter1 + parameter2);
+    return parameter1 + parameter2;
+  }
+
+  double remove(double parameter1, double parameter2) {
+    print("Remove");
+    print(parameter1 - parameter2);
+    return parameter1 - parameter2;
+  }
+}
+
+
+//type functionName(parameter1, parameter2){ code }
+
+
+//class className {}
+
+ 
