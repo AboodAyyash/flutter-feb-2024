@@ -46,32 +46,37 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: Center(
-        child: InkWell(
-          onTap: () {
-            cal();
-          },
-          child: Container(
-            width: width > 450 ? 10 : width / 4,
-            height: 100,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: Colors.amber,
-              borderRadius: BorderRadius.circular(5),
-              border: Border.all(
-                width: 1,
-                color: Colors.black.withOpacity(0.5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            InkWell(
+              onTap: () {
+                cal();
+              },
+              child: Container(
+                width: width > 450 ? 10 : width / 4,
+                height: 100,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: Colors.amber,
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(
+                    width: 1,
+                    color: Colors.black.withOpacity(0.5),
+                  ),
+                ),
+                child: Text(
+                  _counter.toString(),
+                  style: TextStyle(
+                    fontSize: 40,
+                    backgroundColor: const Color.fromARGB(
+                        255, 148, 33, 33), //Color(0xFF000000),
+                    color: Colors.deepOrange[200],
+                  ),
+                ),
               ),
             ),
-            child: Text(
-              _counter.toString(),
-              style: TextStyle(
-                fontSize: 40,
-                backgroundColor:
-                    const Color.fromARGB(255, 148, 33, 33), //Color(0xFF000000),
-                color: Colors.deepOrange[200],
-              ),
-            ),
-          ),
+          ],
         ),
       ),
     );
