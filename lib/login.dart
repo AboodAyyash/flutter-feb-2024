@@ -1,27 +1,45 @@
-import 'package:app/profile..dart';
+import 'package:app/signup.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class SignupPage extends StatefulWidget {
-  const SignupPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<SignupPage> createState() => _SignupPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _SignupPageState extends State<SignupPage> {
+class _LoginPageState extends State<LoginPage> {
   int _counter = 0;
 
   bool isScure = true;
 
   String password = "";
   String userName = "";
-  String email = "";
-  String phone = "";
   IconData passIcon = Icons.remove_red_eye;
 
   TextEditingController textEditingController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getStorage();
+  }
+
+  void setStorage() async {
+    print('sss');
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString("name", "Ahmad");
+  }
+
+  void getStorage() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    print(preferences.getString("name"));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +56,7 @@ class _SignupPageState extends State<SignupPage> {
         elevation: 0,
         titleSpacing: 0,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("Signup"),
+        title: Text("App Bar"),
         actions: [
           Text("Action"),
           IconButton(
@@ -53,57 +71,6 @@ class _SignupPageState extends State<SignupPage> {
         key: _formKey,
         child: ListView(
           children: [
-            /*  Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Name",
-                      ),
-                      onChanged: (value) {
-                        print(value);
-                        userName = value;
-                      },
-                      validator: (value) {
-                        if (value!.isNotEmpty) {
-                          return null;
-                        } else {
-                          return "please add name has at leaset 1 chars";
-                        }
-                      },
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: TextFormField(
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Name",
-                      ),
-                      onChanged: (value) {
-                        print(value);
-                        userName = value;
-                      },
-                      validator: (value) {
-                        if (value!.isNotEmpty) {
-                          return null;
-                        } else {
-                          return "please add name has at leaset 1 chars";
-                        }
-                      },
-                    ),
-                  ),
-                ),
-              ],
-            ),
-             */
             Padding(
               padding: EdgeInsets.all(10),
               child: TextFormField(
@@ -127,26 +94,6 @@ class _SignupPageState extends State<SignupPage> {
             Padding(
               padding: EdgeInsets.all(10),
               child: TextFormField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: "Email",
-                ),
-                onChanged: (value) {
-                  print(value);
-                  email = value;
-                },
-                validator: (value) {
-                  if (value!.isNotEmpty) {
-                    return null;
-                  } else {
-                    return "please add Email has at leaset 1 chars";
-                  }
-                },
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: TextFormField(
                 keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -154,7 +101,6 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 onChanged: (value) {
                   print(value);
-                  phone = value;
                 },
                 validator: (value) {
                   value = replaceNumbers(value);
@@ -217,20 +163,18 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 InkWell(
                   onTap: () {
-                    if (_formKey.currentState!.validate()) {
-                      Navigator.push<void>(
-                        context,
-                        MaterialPageRoute<void>(
-                          builder: (BuildContext context) => ProfilePage(
-                            name: userName,
-                            email: email,
-                            phone: phone,
-                          ),
-                        ),
-                      );
-                    } else {
+                    /*  if (userName.isNotEmpty) { */
+                    Navigator.push<void>(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) => SignupPage(
+                            /*   name: userName, */
+                            ),
+                      ),
+                    );
+                    /*  } else {
                       print("OPS!");
-                    }
+                    } */
                   },
                   child: Text("Signup"),
                 ),
