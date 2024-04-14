@@ -1,3 +1,4 @@
+import 'package:app/profile..dart';
 import 'package:app/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -17,6 +18,8 @@ class _LoginPageState extends State<LoginPage> {
 
   String password = "";
   String userName = "";
+  String phone = "";
+  String email = "";
   IconData passIcon = Icons.remove_red_eye;
 
   TextEditingController textEditingController = TextEditingController();
@@ -103,6 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                   print(value);
                 },
                 validator: (value) {
+                  phone = value!;
                   value = replaceNumbers(value);
                   String patttern = r'(^(?:[+0]9)?[0-9]{9,10}$)';
                   RegExp regExp = new RegExp(patttern);
@@ -139,7 +143,8 @@ class _LoginPageState extends State<LoginPage> {
                   print(value);
                 },
                 validator: (value) {
-                  if (value!.length >= 8) {
+                  password = value!;
+                  if (value.length >= 8) {
                     if (value.contains("@")) {
                       return null;
                     } else {
@@ -157,13 +162,36 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 InkWell(
                   onTap: () {
-                    _formKey.currentState!.validate();
+                    if (_formKey.currentState!.validate()) {
+                      checkData().then((value) {
+                        print(value);
+                        if (value) {
+                          Navigator.push<void>(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (BuildContext context) => ProfilePage(
+                                name: userName,
+                                email: email,
+                                phone: phone,
+                              ),
+                            ),
+                          );
+                        } else {
+                          print("please signup first!");
+                          /* Navigator.push<void>(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (BuildContext context) => SignupPage(),
+                            ),
+                          ); */
+                        }
+                      });
+                    }
                   },
                   child: Text("Login"),
                 ),
                 InkWell(
                   onTap: () {
-                    /*  if (userName.isNotEmpty) { */
                     Navigator.push<void>(
                       context,
                       MaterialPageRoute<void>(
@@ -172,9 +200,6 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                       ),
                     );
-                    /*  } else {
-                      print("OPS!");
-                    } */
                   },
                   child: Text("Signup"),
                 ),
@@ -184,6 +209,31 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  Future<bool> checkData() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    print("Storage Data:");
+    print(preferences.getString("name"));
+    print(preferences.getString("email"));
+    print(preferences.getString("phone"));
+    print(preferences.getString("password"));
+    var nameStorage = preferences.getString("name");
+    var phoneStorage = preferences.getString("phone");
+    var passwordStorage = preferences.getString("password");
+    var emailStorage = preferences.getString("email");
+    print("Enter Data:");
+    print(userName);
+    print(phone);
+    print(password);
+    if (nameStorage == userName &&
+        phoneStorage == phone &&
+        passwordStorage == password) {
+      email = emailStorage!;
+      return true;
+    } else {
+      return false;
+    }
   }
 
   Future timer() async {

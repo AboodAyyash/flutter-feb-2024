@@ -3,11 +3,18 @@ import 'dart:async';
 import 'package:app/login.dart';
 import 'package:app/profile..dart';
 import 'package:app/signup.dart';
+import 'package:app/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_translate/flutter_translate.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  var delegate = await LocalizationDelegate.create(
+      fallbackLocale: 'en', supportedLocales: ['en', 'ar']);
+
+  runApp(LocalizedApp(delegate, MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,14 +22,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    var localizationDelegate = LocalizedApp.of(context).delegate;
+    return LocalizationProvider(
+      state: LocalizationProvider.of(context).state,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          textTheme: GoogleFonts.cairoTextTheme(),
+          useMaterial3: true,
+        ),
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          localizationDelegate
+        ],
+        supportedLocales: localizationDelegate.supportedLocales,
+        locale: localizationDelegate.currentLocale,
+        home: const SplashPage(),
       ),
-      home: const LoginPage(),
     );
   }
 }
@@ -30,10 +49,8 @@ class MyApp extends StatelessWidget {
 
 
 
-// Next class => Listview, Future function, async and await
+// Next class => GridView, infinit List, Animation
 
 /* 
-Login page (userName , password) (Forms Data) => login button ---> Profile,   Signup Button ----> Signup 
-Signup Page (userName, password, phone) (Forms Data) => signup button ---> Profile,   Login Button ----> Login
-Profile Page ()
+
  */

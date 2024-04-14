@@ -1,5 +1,6 @@
 import 'package:app/profile..dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -191,6 +192,7 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 onChanged: (value) {
                   print(value);
+                  password = value;
                 },
                 validator: (value) {
                   if (value!.length >= 8) {
@@ -211,14 +213,11 @@ class _SignupPageState extends State<SignupPage> {
               children: [
                 InkWell(
                   onTap: () {
-                    _formKey.currentState!.validate();
-                  },
-                  child: Text("Login"),
-                ),
-                InkWell(
-                  onTap: () {
                     if (_formKey.currentState!.validate()) {
-                      Navigator.push<void>(
+                      setData().then((value) {
+                        Navigator.pop(context);
+                      });
+                      /*  Navigator.push<void>(
                         context,
                         MaterialPageRoute<void>(
                           builder: (BuildContext context) => ProfilePage(
@@ -227,7 +226,7 @@ class _SignupPageState extends State<SignupPage> {
                             phone: phone,
                           ),
                         ),
-                      );
+                      ); */
                     } else {
                       print("OPS!");
                     }
@@ -240,6 +239,15 @@ class _SignupPageState extends State<SignupPage> {
         ),
       ),
     );
+  }
+
+  Future setData() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString("name", userName);
+    await preferences.setString("email", email);
+    await preferences.setString("phone", phone);
+    await preferences.setString("password", password);
+    return true;
   }
 
   Future timer() async {
