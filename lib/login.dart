@@ -40,6 +40,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void getStorage() async {
+    
     SharedPreferences preferences = await SharedPreferences.getInstance();
     print(preferences.getString("name"));
   }
@@ -195,9 +196,7 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.push<void>(
                       context,
                       MaterialPageRoute<void>(
-                        builder: (BuildContext context) => SignupPage(
-                            /*   name: userName, */
-                            ),
+                        builder: (BuildContext context) => SignupPage(),
                       ),
                     );
                   },

@@ -25,7 +25,7 @@ class _SplashPageState extends State<SplashPage> {
     print(preferences.getString("name"));
     print(preferences.getString("email"));
     print(preferences.getString("phone"));
-    Timer(Duration(seconds: 3), () {
+    Timer(Duration(seconds: 1), () {
       var nameStorage = preferences.getString("name");
       var emailStorage = preferences.getString("email");
       var phoneStorage = preferences.getString("phone");
@@ -37,7 +37,7 @@ class _SplashPageState extends State<SplashPage> {
           ),
         );
       } else {
-        Navigator.push<void>(
+        Navigator.pushReplacement<void, void>(
           context,
           MaterialPageRoute<void>(
             builder: (BuildContext context) => ProfilePage(

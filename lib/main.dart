@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app/login.dart';
+import 'package:app/notes.dart';
 import 'package:app/profile..dart';
 import 'package:app/signup.dart';
 import 'package:app/splash.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+String gg = '';
 void main() async {
   var delegate = await LocalizationDelegate.create(
       fallbackLocale: 'en', supportedLocales: ['en', 'ar']);
@@ -40,7 +42,8 @@ class MyApp extends StatelessWidget {
         ],
         supportedLocales: localizationDelegate.supportedLocales,
         locale: localizationDelegate.currentLocale,
-        home: const SplashPage(),
+        //  home: const SplashPage(),// old Code
+        home: NotesPage(),
       ),
     );
   }
@@ -48,9 +51,8 @@ class MyApp extends StatelessWidget {
 
 
 
+//assig
+//Products and cart page
 
-// Next class => GridView, infinit List, Animation
-
-/* 
-
- */
+//next class
+//MVC
