@@ -1,10 +1,5 @@
 import 'dart:async';
-
-import 'package:app/login.dart';
-import 'package:app/notes.dart';
-import 'package:app/profile..dart';
-import 'package:app/signup.dart';
-import 'package:app/splash.dart';
+import 'package:app/pages/notes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -42,7 +37,6 @@ class MyApp extends StatelessWidget {
         ],
         supportedLocales: localizationDelegate.supportedLocales,
         locale: localizationDelegate.currentLocale,
-        //  home: const SplashPage(),// old Code
         home: NotesPage(),
       ),
     );
@@ -56,3 +50,13 @@ class MyApp extends StatelessWidget {
 
 //next class
 //MVC
+
+//Model View Controller
+
+
+//price color size type => car
+//price img name barcode => product
+//title body => note
+
+
+
