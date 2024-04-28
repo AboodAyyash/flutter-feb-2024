@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:app/controllers/note.dart';
 import 'package:app/models/note.dart';
 import 'package:app/pages/editor.dart';
+import 'package:app/shared/shared.dart';
 import 'package:flutter/material.dart';
 
 class NotesPage extends StatefulWidget {
@@ -13,28 +14,25 @@ class NotesPage extends StatefulWidget {
 }
 
 class _NotesPageState extends State<NotesPage> {
-  List<Note> notes = [];
   NoteController noteController = NoteController();
   List<Color> colors = [];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    /*  List<Note> allNotes = noteController.getNotes();
-    for (var i = 0; i < allNotes.length; i++) {
-      print(allNotes[i].body);
-    } */
+    noteController.getNotesData().then((value) {
+      setState(() {});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Notes"),
+        title: Text(notes.length.toString()),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () /* async */ {
-          /*  var result = await */ Navigator.push(
+        onPressed: () {
+          Navigator.push(
             context,
             MaterialPageRoute(
               builder: (BuildContext context) => EditorPage(editNote: Note()),
@@ -45,10 +43,10 @@ class _NotesPageState extends State<NotesPage> {
 
             setState(() {
               notes.add(value);
+              noteController.setNotesInStorage(value, notes.length - 1);
+              noteController.setNotesLength(notes.length);
             });
           });
-
-          /*   print(result); */
         },
         child: Icon(
           Icons.add,
@@ -75,6 +73,7 @@ class _NotesPageState extends State<NotesPage> {
                     ).then((value) {
                       setState(() {
                         notes[index] = value;
+                        noteController.setNotesInStorage(notes[index], index);
                       });
                     });
                   },
@@ -82,7 +81,7 @@ class _NotesPageState extends State<NotesPage> {
                     padding: EdgeInsets.all(10),
                     margin: EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: colors[index],
+                      color: randomColor(),
                     ),
                     child: Column(
                       children: [
@@ -108,6 +107,17 @@ class _NotesPageState extends State<NotesPage> {
                 );
               },
             ),
+    );
+  }
+
+  Color randomColor() {
+    Random random = Random();
+
+    return Color.fromARGB(
+      255,
+      random.nextInt(256), // 0 - 255
+      random.nextInt(256),
+      random.nextInt(256),
     );
   }
 }

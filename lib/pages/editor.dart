@@ -36,7 +36,6 @@ class _EditorPageState extends State<EditorPage> {
               print(title);
               print(body);
               if (title.text.isNotEmpty && body.text.isNotEmpty) {
-                //  Map note = {'title': title, 'body': body};
                 Note note = Note(body: body.text, title: title.text);
                 Navigator.pop(context, note);
               } else {
