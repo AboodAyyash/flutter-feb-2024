@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:app/DB/helper.dart';
 import 'package:app/controllers/note.dart';
 import 'package:app/models/note.dart';
 import 'package:app/pages/editor.dart';
@@ -16,12 +17,24 @@ class NotesPage extends StatefulWidget {
 class _NotesPageState extends State<NotesPage> {
   NoteController noteController = NoteController();
   List<Color> colors = [];
+
+  DBHelper dbHelper = DBHelper();
   @override
   void initState() {
     super.initState();
-    noteController.getNotesData().then((value) {
+    dbHelper.queryAllNotes().then((value) {
+      print(value);
+      for (var i = 0; i < value.length; i++) {
+        print(i);
+        print(value[i].title);
+        print(value[i].body);
+      }
+      notes.addAll(value);
       setState(() {});
     });
+    /*  noteController.getNotesData().then((value) {
+      setState(() {});
+    }); */
   }
 
   @override
@@ -40,11 +53,13 @@ class _NotesPageState extends State<NotesPage> {
           ).then((value) {
             print("Welcome Back");
             print(value);
-
             setState(() {
               notes.add(value);
-              noteController.setNotesInStorage(value, notes.length - 1);
-              noteController.setNotesLength(notes.length);
+              dbHelper.insertNote(value).then((value) {
+                print(value);
+              });
+              //   noteController.setNotesInStorage(value, notes.length - 1);
+              //    noteController.setNotesLength(notes.length);
             });
           });
         },
@@ -73,7 +88,8 @@ class _NotesPageState extends State<NotesPage> {
                     ).then((value) {
                       setState(() {
                         notes[index] = value;
-                        noteController.setNotesInStorage(notes[index], index);
+                        dbHelper.updateNote(value);
+                        //noteController.setNotesInStorage(notes[index], index);
                       });
                     });
                   },
@@ -101,6 +117,25 @@ class _NotesPageState extends State<NotesPage> {
                             fontSize: 18,
                           ),
                         ),
+                        Stack(
+                          children: [
+                          /*   Container(
+                              margin: EdgeInsets.only(top: 10),
+                              child: Text("sss"),
+                            ), */
+                            TextButton(
+                              onLongPress: () {
+                              //  print("LONG");
+                              },
+                              onPressed: () {
+                                dbHelper.deleteNote(notes[index]);
+                                notes.removeAt(index);
+                                setState(() {});
+                              },
+                              child: Text("Delete"),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),

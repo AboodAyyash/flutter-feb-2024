@@ -44,19 +44,6 @@ class MyApp extends StatelessWidget {
 }
 
 
-
-//assig
-//Products and cart page
-
-//next class
-//MVC
-
-//Model View Controller
-
-
-//price color size type => car
-//price img name barcode => product
-//title body => note
-
-
+// TODO List app (TODO => title, body , date, status(done, pending))
+// SQFLITE
 
