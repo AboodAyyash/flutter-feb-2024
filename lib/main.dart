@@ -1,12 +1,11 @@
 import 'dart:async';
-import 'package:app/pages/notes.dart';
+import 'package:app/chat.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-String gg = '';
 void main() async {
   var delegate = await LocalizationDelegate.create(
       fallbackLocale: 'en', supportedLocales: ['en', 'ar']);
@@ -37,13 +36,11 @@ class MyApp extends StatelessWidget {
         ],
         supportedLocales: localizationDelegate.supportedLocales,
         locale: localizationDelegate.currentLocale,
-        home: NotesPage(),
+        home: ChatPage(),
       ),
     );
   }
 }
 
 
-// TODO List app (TODO => title, body , date, status(done, pending))
-// SQFLITE
-
+//Google Map
